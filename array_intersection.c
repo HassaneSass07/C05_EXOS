@@ -42,10 +42,6 @@ int main() {
             }
         }
 
-        // S'il n'existe pas dans tab2, passer au suivant
-        if (!commun)
-            continue;
-
         // Vérifier s'il est déjà dans l'intersection
         int deja_ajoute = 0;
         for (j = 0; j < k; j++) {
