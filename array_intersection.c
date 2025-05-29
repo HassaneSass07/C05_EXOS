@@ -1,20 +1,22 @@
-#include <stdio.h>  // Inclusion de la bibliothèque standard d'entrées/sorties
+#include <stdio.h>  
 
 int main() {
     int n1, n2, i, j, k = 0;
 
+    int tab1[n1];  // Déclaration du premier tableau 
     // Lire la taille du premier tableau
     scanf("%d", &n1);
-    int tab1[n1];  // Déclaration du premier tableau avec taille dynamique (C99+)
+    
 
     // Lire les éléments du premier tableau
     for (i = 0; i < n1; i++) {
         scanf("%d", &tab1[i]);
     }
 
+    int tab2[n2];  // Déclaration du deuxième tableau
     // Lire la taille du deuxième tableau
     scanf("%d", &n2);
-    int tab2[n2];  // Déclaration du deuxième tableau
+    
 
     // Lire les éléments du deuxième tableau
     for (i = 0; i < n2; i++) {
@@ -37,8 +39,8 @@ int main() {
         // Vérifier si tab1[i] est présent dans tab2
         for (j = 0; j < n2; j++) {
             if (tab1[i] == tab2[j]) {
-                commun = 1;  // Marquer comme trouvé
-                break;       // Sortir de la boucle interne
+                commun = 1;  
+                break;       
             }
         }
 
@@ -54,7 +56,7 @@ int main() {
         // Ajouter à l'intersection si l'élément est commun et pas encore ajouté
         if (commun && !deja_ajoute) {
             intersection[k] = tab1[i];
-            k++;  // Incrémenter le compteur d'éléments dans intersection[]
+            k++;  
         }
     }
 
