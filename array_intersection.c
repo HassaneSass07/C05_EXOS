@@ -3,41 +3,39 @@
 int main() {
     int n1, n2, i, j, k = 0;
 
-    // Lire la taille du 1er tableau et ses éléments
+    // Lire les tailles des deux tableaux
     scanf("%d", &n1);
-    int t1[n1];
-    for (i = 0; i < n1; i++) scanf("%d", &t1[i]);
+    int a[n1];
+    for (i = 0; i < n1; i++) scanf("%d", &a[i]);
 
-    // Lire la taille du 2e tableau et ses éléments
     scanf("%d", &n2);
-    int t2[n2];
-    for (i = 0; i < n2; i++) scanf("%d", &t2[i]);
+    int b[n2];
+    for (i = 0; i < n2; i++) scanf("%d", &b[i]);
 
-    // Définir la taille max de l'intersection (le plus petit des deux)
-    int min = (n1 < n2) ? n1 : n2;
-    int inter[min];  // Pour stocker les éléments communs
+    // Déclaration du tableau résultat pour l'intersection
+    int inter[n1 + n2];  // Taille maximale possible (au pire tous en commun)
 
-    // Pour chaque élément de t1
+    // Vérification de chaque élément de a[]
     for (i = 0; i < n1; i++) {
-        // Chercher s’il est dans t2
+        // Chercher l'élément a[i] dans b[]
         for (j = 0; j < n2; j++) {
-            if (t1[i] == t2[j]) {
-                // Vérifier qu’on ne l’a pas déjà mis dans inter[]
-                int deja = 0;
+            if (a[i] == b[j]) {
+                // Vérifier s’il est déjà présent dans inter[]
+                int existe = 0;
                 for (int m = 0; m < k; m++) {
-                    if (inter[m] == t1[i]) {
-                        deja = 1;
+                    if (inter[m] == a[i]) {
+                        existe = 1;
                         break;
                     }
                 }
-                // Si pas encore présent, on l’ajoute à inter[]
-                if (!deja) inter[k++] = t1[i];
-                break;  // Inutile de continuer à chercher dans t2
+                // Si ce n’est pas un doublon, on l’ajoute
+                if (!existe) inter[k++] = a[i];
+                break;  // Pas besoin de continuer à chercher dans b[]
             }
         }
     }
 
-    // Afficher les éléments communs
+    // Affichage du résultat
     printf("Intersection :");
     for (i = 0; i < k; i++) printf(" %d", inter[i]);
     printf("\n");
