@@ -3,34 +3,41 @@
 int main() {
     int n1, n2, i, j, k = 0;
 
-    // Lecture de la taille et des éléments du premier tableau
+    // Lire la taille du 1er tableau et ses éléments
     scanf("%d", &n1);
-    int a[n1];
-    for (i = 0; i < n1; i++) scanf("%d", &a[i]);
+    int t1[n1];
+    for (i = 0; i < n1; i++) scanf("%d", &t1[i]);
 
-    // Lecture de la taille et des éléments du deuxième tableau
+    // Lire la taille du 2e tableau et ses éléments
     scanf("%d", &n2);
-    int b[n2];
-    for (i = 0; i < n2; i++) scanf("%d", &b[i]);
+    int t2[n2];
+    for (i = 0; i < n2; i++) scanf("%d", &t2[i]);
 
-    // Calcul de la taille maximale possible pour l'intersection
-    int max;
-    if (n1 < n2) max = n1;
-    else max = n2;
-    int inter[max]; // Tableau pour stocker l’intersection
+    // Définir la taille max de l'intersection (le plus petit des deux)
+    int min = (n1 < n2) ? n1 : n2;
+    int inter[min];  // Pour stocker les éléments communs
 
-    // Parcourir chaque élément du premier tableau
+    // Pour chaque élément de t1
     for (i = 0; i < n1; i++) {
-        // Vérifie si a[i] existe dans le deuxième tableau
-        for (j = 0; j < n2 && a[i] != b[j]; j++);
-        if (j == n2) continue; // a[i] non trouvé → passer à l'élément suivant
-
-        // Vérifie si a[i] est déjà dans l'intersection
-        for (j = 0; j < k && inter[j] != a[i]; j++);
-        if (j == k) inter[k++] = a[i]; // Si ce n’est pas déjà là, on l’ajoute
+        // Chercher s’il est dans t2
+        for (j = 0; j < n2; j++) {
+            if (t1[i] == t2[j]) {
+                // Vérifier qu’on ne l’a pas déjà mis dans inter[]
+                int deja = 0;
+                for (int m = 0; m < k; m++) {
+                    if (inter[m] == t1[i]) {
+                        deja = 1;
+                        break;
+                    }
+                }
+                // Si pas encore présent, on l’ajoute à inter[]
+                if (!deja) inter[k++] = t1[i];
+                break;  // Inutile de continuer à chercher dans t2
+            }
+        }
     }
 
-    // Affichage du tableau intersection
+    // Afficher les éléments communs
     printf("Intersection :");
     for (i = 0; i < k; i++) printf(" %d", inter[i]);
     printf("\n");
