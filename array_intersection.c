@@ -1,44 +1,60 @@
 #include <stdio.h>
 
-int main() {
-    int n1, n2, i, j, k = 0;
+// Fonction pour lire un tableau
+void lire_tableau(int t[], int taille) {
+    for (int i = 0; i < taille; i++) {
+        scanf("%d", &t[i]);
+    }
+}
 
-    // Lire les tailles des deux tableaux
+// Fonction pour vérifier si un élément existe déjà dans un tableau
+int existe_deja(int t[], int taille, int valeur) {
+    for (int i = 0; i < taille; i++) {
+        if (t[i] == valeur) return 1;
+    }
+    return 0;
+}
+
+// Fonction pour afficher un tableau
+void afficher_tableau(int t[], int taille) {
+    printf("Intersection :");
+    for (int i = 0; i < taille; i++) {
+        printf(" %d", t[i]);
+    }
+    printf("\n");
+}
+
+// Fonction principale
+int main() {
+    int n1, n2;
+
+    // Lire les tailles
     scanf("%d", &n1);
-    int a[n1];
-    for (i = 0; i < n1; i++) scanf("%d", &a[i]);
+    int t1[n1];
+    lire_tableau(t1, n1);
 
     scanf("%d", &n2);
-    int b[n2];
-    for (i = 0; i < n2; i++) scanf("%d", &b[i]);
+    int t2[n2];
+    lire_tableau(t2, n2);
 
-    // Déclaration du tableau résultat pour l'intersection
-    int inter[n1 + n2];  // Taille maximale possible (au pire tous en commun)
+    // Tableau pour stocker l'intersection
+    int inter[n1 + n2];
+    int k = 0;
 
-    // Vérification de chaque élément de a[]
-    for (i = 0; i < n1; i++) {
-        // Chercher l'élément a[i] dans b[]
-        for (j = 0; j < n2; j++) {
-            if (a[i] == b[j]) {
-                // Vérifier s’il est déjà présent dans inter[]
-                int existe = 0;
-                for (int m = 0; m < k; m++) {
-                    if (inter[m] == a[i]) {
-                        existe = 1;
-                        break;
-                    }
+    // Recherche des éléments communs sans doublons
+    for (int i = 0; i < n1; i++) {
+        for (int j = 0; j < n2; j++) {
+            if (t1[i] == t2[j]) {
+                if (!existe_deja(inter, k, t1[i])) {
+                    inter[k++] = t1[i];
                 }
-                // Si ce n’est pas un doublon, on l’ajoute
-                if (!existe) inter[k++] = a[i];
-                break;  // Pas besoin de continuer à chercher dans b[]
+                break;
             }
         }
     }
 
     // Affichage du résultat
-    printf("Intersection :");
-    for (i = 0; i < k; i++) printf(" %d", inter[i]);
-    printf("\n");
+    afficher_tableau(inter, k);
 
     return 0;
 }
