@@ -1,60 +1,60 @@
 #include <stdio.h>
 
-// Fonction pour lire un tableau
-void lire_tableau(int t[], int taille) {
-    for (int i = 0; i < taille; i++) {
-        scanf("%d", &t[i]);
-    }
-}
-
-// Fonction pour vérifier si un élément existe déjà dans un tableau
-int existe_deja(int t[], int taille, int valeur) {
-    for (int i = 0; i < taille; i++) {
-        if (t[i] == valeur) return 1;
-    }
-    return 0;
-}
-
-// Fonction pour afficher un tableau
-void afficher_tableau(int t[], int taille) {
-    printf("Intersection :");
-    for (int i = 0; i < taille; i++) {
-        printf(" %d", t[i]);
-    }
-    printf("\n");
-}
-
-// Fonction principale
 int main() {
-    int n1, n2;
+    int n1, n2, i, j, k = 0;
 
-    // Lire les tailles
+    // Lire la taille du premier tableau
     scanf("%d", &n1);
-    int t1[n1];
-    lire_tableau(t1, n1);
+    int a[n1];
+    for (i = 0; i < n1; i++) {
+        scanf("%d", &a[i]);
+    }
 
+    // Lire la taille du deuxième tableau
     scanf("%d", &n2);
-    int t2[n2];
-    lire_tableau(t2, n2);
+    int b[n2];
+    for (i = 0; i < n2; i++) {
+        scanf("%d", &b[i]);
+    }
 
-    // Tableau pour stocker l'intersection
-    int inter[n1 + n2];
-    int k = 0;
-
-    // Recherche des éléments communs sans doublons
-    for (int i = 0; i < n1; i++) {
-        for (int j = 0; j < n2; j++) {
-            if (t1[i] == t2[j]) {
-                if (!existe_deja(inter, k, t1[i])) {
-                    inter[k++] = t1[i];
-                }
+    // On suppose que l'intersection ne dépassera pas n1 (ou n2)
+    int inter[n1];
+    
+    // Pour chaque élément du premier tableau
+    for (i = 0; i < n1; i++) {
+        // Vérifier s'il existe dans le deuxième tableau
+        int trouve = 0;
+        for (j = 0; j < n2; j++) {
+            if (a[i] == b[j]) {
+                trouve = 1;
                 break;
+            }
+        }
+
+        // Si trouvé, vérifier qu'il n'est pas déjà dans l'intersection
+        if (trouve) {
+            int deja = 0;
+            for (j = 0; j < k; j++) {
+                if (inter[j] == a[i]) {
+                    deja = 1;
+                    break;
+                }
+            }
+
+            // S'il n'est pas encore dans l'intersection, on l'ajoute
+            if (!deja) {
+                inter[k] = a[i];
+                k++;
             }
         }
     }
 
-    // Affichage du résultat
-    afficher_tableau(inter, k);
+    // Afficher l'intersection
+    printf("Intersection :");
+    for (i = 0; i < k; i++) {
+        printf(" %d", inter[i]);
+    }
+    printf("\n");
 
     return 0;
 }
