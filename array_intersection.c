@@ -33,7 +33,6 @@ int main() {
     // Trouver les éléments communs
     for (i = 0; i < n1; i++) {
         int commun = 0;
-
         // Chercher tab1[i] dans tab2[]
         for (j = 0; j < n2; j++) {
             if (tab1[i] == tab2[j]) {
