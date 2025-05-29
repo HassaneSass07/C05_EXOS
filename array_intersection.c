@@ -4,23 +4,19 @@ int main() {
     int n1, n2, i, j, k = 0;
 
     // Lire la taille du premier tableau
-    printf("Taille du premier tableau : ");
     scanf("%d", &n1);
     int tab1[n1];
 
     // Lire les éléments du premier tableau
-    printf("Éléments du premier tableau : ");
     for (i = 0; i < n1; i++) {
         scanf("%d", &tab1[i]);
     }
 
     // Lire la taille du deuxième tableau
-    printf("Taille du deuxième tableau : ");
     scanf("%d", &n2);
     int tab2[n2];
 
     // Lire les éléments du deuxième tableau
-    printf("Éléments du deuxième tableau : ");
     for (i = 0; i < n2; i++) {
         scanf("%d", &tab2[i]);
     }
