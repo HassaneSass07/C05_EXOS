@@ -4,19 +4,23 @@ int main() {
     int n1, n2, i, j, k = 0;
 
     // Lire la taille du premier tableau
+    printf("Entrez la taille du premier tableau: ");
     scanf("%d", &n1);
     int tab1[n1];
 
     // Lire les éléments du premier tableau
+    printf("Entrez les éléments du premier tableau: ");
     for (i = 0; i < n1; i++) {
         scanf("%d", &tab1[i]);
     }
 
     // Lire la taille du deuxième tableau
+    printf("Entrez la taille du deuxième tableau: ");
     scanf("%d", &n2);
     int tab2[n2];
 
     // Lire les éléments du deuxième tableau
+    printf("Entrez les éléments du deuxième tableau: ");
     for (i = 0; i < n2; i++) {
         scanf("%d", &tab2[i]);
     }
@@ -41,28 +45,34 @@ int main() {
             }
         }
 
-        // Vérifier s'il est déjà dans l'intersection
-        int deja_ajoute = 0;
-        for (j = 0; j < k; j++) {
-            if (intersection[j] == tab1[i]) {
-                deja_ajoute = 1;
-                break;
+        // Si l'élément est commun, vérifier s'il est déjà dans l'intersection
+        if (commun) {
+            int deja_ajoute = 0;
+            for (j = 0; j < k; j++) {
+                if (intersection[j] == tab1[i]) {
+                    deja_ajoute = 1;
+                    break;
+                }
             }
-        }
 
-        // Ajouter à l'intersection s'il n'est pas déjà là
-        if (!deja_ajoute) {
-            intersection[k] = tab1[i];
-            k++;
+            // Ajouter à l'intersection s'il n'est pas déjà là
+            if (!deja_ajoute) {
+                intersection[k] = tab1[i];
+                k++;
+            }
         }
     }
 
     // Afficher l'intersection
-    printf("Intersection :");
-    for (i = 0; i < k; i++) {
-        printf(" %d", intersection[i]);
+    if (k == 0) {
+        printf("Intersection: vide\n");
+    } else {
+        printf("Intersection:");
+        for (i = 0; i < k; i++) {
+            printf(" %d", intersection[i]);
+        }
+        printf("\n");
     }
-    printf("\n");
 
     return 0;
 }
