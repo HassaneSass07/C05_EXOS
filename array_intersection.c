@@ -1,68 +1,71 @@
 #include <stdio.h>
 
 int main() {
-    int n1, n2;
-    
-    // Lire la taille du premier tableau
+    int n1, n2, i, j, k = 0;
+
+    // Lecture de la taille du premier tableau
     scanf("%d", &n1);
-    
-    // Déclarer et lire le premier tableau
-    int arr1[n1];
-    for (int i = 0; i < n1; i++) {
-        scanf("%d", &arr1[i]);
+    int tab1[n1];
+    for (i = 0; i < n1; i++) {
+        scanf("%d", &tab1[i]);
     }
-    
-    // Lire la taille du deuxième tableau
+
+    // Lecture de la taille du second tableau
     scanf("%d", &n2);
-    
-    // Déclarer et lire le deuxième tableau
-    int arr2[n2];
-    for (int i = 0; i < n2; i++) {
-        scanf("%d", &arr2[i]);
+    int tab2[n2];
+    for (i = 0; i < n2; i++) {
+        scanf("%d", &tab2[i]);
     }
-    
-    // Tableau pour stocker l'intersection
-    int intersection[n1 < n2 ? n1 : n2]; // Taille max = min(n1, n2)
-    int taille_intersection = 0;
-    
-    // Trouver les éléments communs
-    for (int i = 0; i < n1; i++) {
-        // Vérifier si arr1[i] existe dans arr2
-        int trouve_dans_arr2 = 0;
-        for (int j = 0; j < n2; j++) {
-            if (arr1[i] == arr2[j]) {
-                trouve_dans_arr2 = 1;
+
+    // Taille maximale de l'intersection = taille du plus petit tableau
+    int taille_max;
+    if (n1 < n2) {
+        taille_max = n1;
+    } else {
+        taille_max = n2;
+    }
+
+    int inter[taille_max]; // Tableau pour stocker l'intersection sans doublons
+
+    // Parcours du premier tableau
+    for (i = 0; i < n1; i++) {
+        int present_dans_tab2 = 0;
+
+        // Vérifie si tab1[i] est présent dans tab2
+        for (j = 0; j < n2; j++) {
+            if (tab1[i] == tab2[j]) {
+                present_dans_tab2 = 1;
                 break;
             }
         }
-        
-        // Si l'élément est trouvé dans arr2, vérifier qu'il n'est pas déjà dans l'intersection
-        if (trouve_dans_arr2) {
-            int deja_dans_intersection = 0;
-            for (int k = 0; k < taille_intersection; k++) {
-                if (intersection[k] == arr1[i]) {
-                    deja_dans_intersection = 1;
-                    break;
-                }
+
+        // Si l'élément n'existe pas dans tab2, on continue
+        if (present_dans_tab2 == 0) {
+            continue;
+        }
+
+        // Vérifie si l'élément est déjà dans inter[]
+        int deja_present = 0;
+        for (j = 0; j < k; j++) {
+            if (inter[j] == tab1[i]) {
+                deja_present = 1;
+                break;
             }
-            
-            // Ajouter à l'intersection si pas encore présent
-            if (!deja_dans_intersection) {
-                intersection[taille_intersection] = arr1[i];
-                taille_intersection++;
-            }
+        }
+
+        // Si pas encore présent, on l'ajoute
+        if (deja_present == 0) {
+            inter[k] = tab1[i];
+            k++;
         }
     }
-    
-    // Afficher l'intersection
-    printf("Intersection : ");
-    for (int i = 0; i < taille_intersection; i++) {
-        printf("%d", intersection[i]);
-        if (i < taille_intersection - 1) {
-            printf(" ");
-        }
+
+    // Affichage de l'intersection
+    printf("Intersection :");
+    for (i = 0; i < k; i++) {
+        printf(" %d", inter[i]);
     }
     printf("\n");
-    
+
     return 0;
-} 
+}
