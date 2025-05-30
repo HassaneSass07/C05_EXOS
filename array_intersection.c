@@ -1,58 +1,34 @@
 #include <stdio.h>
 
 int main() {
-    int n1, n2, i, j, k = 0;
+    int n1, n2, i;
 
     // Lire la taille du premier tableau
     scanf("%d", &n1);
     int a[n1];
-    for (i = 0; i < n1; i++) {
-        scanf("%d", &a[i]);
-    }
+    for (i = 0; i < n1; i++) scanf("%d", &a[i]);
 
     // Lire la taille du deuxième tableau
     scanf("%d", &n2);
     int b[n2];
-    for (i = 0; i < n2; i++) {
-        scanf("%d", &b[i]);
-    }
+    for (i = 0; i < n2; i++) scanf("%d", &b[i]);
 
-    // On suppose que l'intersection ne dépassera pas n1 (ou n2)
-    int inter[n1];
-    
-    // Pour chaque élément du premier tableau
+    // Supposons que les valeurs sont toutes dans [0, 999]
+    int present_a[1000] = {0};
+    int deja_imprime[1000] = {0};
+
+    // Marquer les éléments présents dans le 1er tableau
     for (i = 0; i < n1; i++) {
-        // Vérifier s'il existe dans le deuxième tableau
-        int trouve = 0;
-        for (j = 0; j < n2; j++) {
-            if (a[i] == b[j]) {
-                trouve = 1;
-                break;
-            }
-        }
-
-        // Si trouvé, vérifier qu'il n'est pas déjà dans l'intersection
-        if (trouve) {
-            int deja = 0;
-            for (j = 0; j < k; j++) {
-                if (inter[j] == a[i]) {
-                    deja = 1;
-                    break;
-                }
-            }
-
-            // S'il n'est pas encore dans l'intersection, on l'ajoute
-            if (!deja) {
-                inter[k] = a[i];
-                k++;
-            }
-        }
+        present_a[a[i]] = 1;
     }
 
-    // Afficher l'intersection
+    // Afficher les éléments de b[] qui sont aussi dans a[]
     printf("Intersection :");
-    for (i = 0; i < k; i++) {
-        printf(" %d", inter[i]);
+    for (i = 0; i < n2; i++) {
+        if (present_a[b[i]] && !deja_imprime[b[i]]) {
+            printf(" %d", b[i]);
+            deja_imprime[b[i]] = 1;  // Pour éviter les doublons
+        }
     }
     printf("\n");
 
